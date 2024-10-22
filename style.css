@@ -13,6 +13,7 @@ main {
     font-weight: 100;
     font-style: normal;
     padding: 0;
+    background-color: #c6fdf7;
 }
 
 .random {
@@ -21,6 +22,9 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all .4s ease-in-out;
+    transform-style: preserve-3d;
+    opacity: 0;
 }
 
 .color-picker-container {
@@ -31,4 +35,10 @@ main {
 
 h1 {
     text-align: center;
+    transform: rotateY(180deg);
+}
+
+.flip {
+    transform: rotateY(180deg);
+    opacity: 1;
 }

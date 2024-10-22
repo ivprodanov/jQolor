@@ -73,21 +73,36 @@ const randomComplementingColors = () => {
 const rgbToHex = (r, g, b) => `#${((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1)}`;
 
 // Function to generate and color the divs
+// Function to generate and color the divs
 const generateThreeRandom = () => {
     const colors = randomComplementingColors();
 
-    $('#three-random').find('div').remove();
-
-    for (let i = 1; i <= 5; i++) {
-        $('#three-random').append($(`<div class="random" id='random-${i}'></div>`));
+    // If divs don't exist yet, create them (but don't remove them afterward)
+    if ($('#three-random').children().length === 0) {
+        for (let i = 1; i <= 5; i++) {
+            $('#three-random').append($(`<div class="random" id='random-${i}'></div>`));
+        }
     }
 
+    // Update the background color of the existing divs
     $('#three-random').children().each(function(index) {
-        console.log(index, colors[index]);
-        $(this).append(`<h1 style="color: ${colors[index]}; filter: invert(1); text-shadow: 0px 0px 4px #ffffffa3;">${colors[index]}</h1>`)
-        $(this).css('background-color', colors[index]);
-    });
+        const $element = $(this); // Store the current element reference
+        $element.removeClass('flip');
+        setTimeout(() => {
+            setTimeout(() => {
+                $element.addClass('flip');
+            }, index * 100);
+        }, 200)
+    
+         // Remove the class after 500ms
+    
+        // Optionally update the text color or content
+        $element.find('h1').remove(); // Remove old text
+        $element.append(`<h1 style="color: ${colors[index]}; filter: invert(1); text-shadow: 0px 0px 4px #ffffffa3;">${colors[index]}</h1>`);
+        $(this).css('background-color', colors[index]);});
+    
 }
+
 
 $(document).keydown(function(e) { 
     var id = e.key || e.which || e.keyCode; // Use 'e' (event) instead of 'event'
